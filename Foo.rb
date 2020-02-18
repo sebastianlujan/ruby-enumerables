@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# reimplementing methods
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
@@ -7,7 +8,7 @@ module Enumerable
     self
   end
 
-  def my_each_with_index 
+  def my_each_with_index
     return to_enum(:my_each_with_index) unless block_given?
 
     size.times { |i| yield(to_a[i], i) }
@@ -22,12 +23,13 @@ module Enumerable
     arr
   end
 
+  # Black arcane magic over voodoo
   def validate?(arg, element, equality)
     if arg.instance_of? Regexp
-      arg.match? element
-    elsif element.instance_of? arg.class
+      arg.match?(element.to_s)
+    elsif element.instance_of? arg.class #same type
       arg == element
-    elsif arg.is_a? Class
+    elsif arg.is_a? Class #TO_FIX
       element.is_a? arg
     else
       equality
@@ -37,32 +39,31 @@ module Enumerable
   def my_all?(arg = nil)
     meet_condition = true
     my_each do |i|
-      return !meet_condition if block_given? && !yield(i)
-      return !(i.nil? || i == !meet_condition) if arg.nil?
-
-      meet_condition &= validate?(arg, i, !meet_condition)
+      condition = block_given? && !yield(i)
+      condition ||= !block_given? && arg.nil? && !i
+      condition ||= !validate?(arg, i, true)
+      return false if condition
     end
     meet_condition
   end
 
-  def my_none?(obj = nil)
+  def my_none?(arg = nil)
     meet_condition = true
     my_each do |i|
       return false if block_given? && yield(i)
-      #return (i.nil? || i == meet_condition) if obj.nil?
-
-      #meet_condition = meet_condition validate?(obj, i, false)
+      return false if !block_given? && arg.nil? && i == true
+      return false if validate?(arg, i, false)
     end
-    meet_condition
+    return meet_condition
   end
 
   def my_any?(arg = nil)
     meet_condition = false
     my_each do |i|
-      return true if block_given? && yield(i)
-      return true if !block_given? && arg.nil? && i
-
-      meet_condition = !meet_condition && validate?(arg, i, meet_condition)
+      condition = block_given? && yield(i)
+      condition ||= !block_given? && arg.nil? && i
+      condition ||= validate?(arg, i, meet_condition)
+      return true if condition
     end
     meet_condition
   end
@@ -83,68 +84,42 @@ module Enumerable
     my_each { |i| arr << yield(i) }
     arr
   end
+
+  def inject(*args ) 
+    acc = 0
+    if block_given?
+      my_each { |i| acc = yield(acc, i) }
+      unless args.size.zero?
+        if args.size == 1 && args[0].class == Integer
+          acc = args[0]
+          my_each { |i| acc = yield(acc, i) }
+        end
+      end
+    else
+      if args.size == 1 && args[0].class == Symbol
+        my_each { |i| acc.call( args[1], i ) }
+      end 
+      if args.size == 2 && (args[0].class == Integer) && (args[1].class == Symbol)
+        my_each {|i| args[0].call( args[1], i) }
+      end
+    end
+    acc
+  end
+
+  def multiply_els(arg)
+    arg.inject(:*)
+  end
 end
 
-# p arr.my_select(&:even?)
-# p arr.my_inject(:+) { |i| i }
-# p arr.my_select(&:even?)
-# identity = ->(i) { i }
-# f = ->(x) { x * 3 }
-# p ary.my_each(&identity)
-# p ary.my_select(&:even?)
-=begin
-p ary.my_map(&f)
+p %w{ant bear cat}.my_none? { |word| word.length == 5 } #=> true
+p %w{ant bear cat}.my_none? { |word| word.length >= 4 } #=> false
+p %w{ant bear cat}.my_none?(/d/)                        #=> true
+p [1, 3.14, 42].my_none?(Float)                         #=> false
+p [].my_none?                                           #=> true
+p [nil].my_none?                                        #=> true
+p [nil, false].my_none?                                 #=> true
+p [nil, false, true].my_none?                           #=> false
 
-p "my_each_with_index"
-hash = Hash.new
-%w(cat dog wombat).my_each_with_index { |item, index|
-  hash[item] = index
-}
-p hash   #=> {"cat"=>0, "dog"=>1, "wombat"=>2}
-=end
+require './test_basic.rb'
 
-  p "my_all"
-
-  #p%w[ant bear cat].my_all? { |word| word.length >= 3 } #=> true
-  #p %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
-  #p %w[ant bear cat].my_all?(/t/)                        #=> false
-  #p %w[ant beart cat].my_all?(/t/)                        #=>true
-  #p [1,1,1].my_all?(1)                                   #=>true
-  #p [1,1,1].my_all?(3)                                   #=>false
-  #p [nil, true, 99].my_all?                              #=>false
-  #p [true, 'a'].my_all?                                  #=>true
-  #p [].my_all?                                              #=>true
-  #p [1, 1, 1].my_all?('S')                               #=>false
-  #p [1, 2i, 3.14].my_all?(Numeric)                       #=> true
-  #p [1, 2i, 3.14, 'a'].my_all?(Numeric)                  #=> falso
-
-  p "my_none"
-
-  p %w{ant bear cat}.my_none? { |word| word.length == 5 } #=> true
-  p %w{ant bear cat}.my_none? { |word| word.length >= 4 } #=> false
-  #p %w{ant bear cat}.my_none?(/d/)                        #=> true
-  #p [1, 3.14, 42].my_none?(Float)                         #=> false
-  #p [].my_none?                                           #=> true
-  #p [nil].my_none?                                        #=> true
-  #p [nil, false].my_none?                                 #=> true
-  #p [nil, false, true].my_none?                           #=> false
-
-  p "my_any"
-
-  #p %w[ant bear cat].my_any? { |word| word.length >= 3 } #=> true
-  #p %w[ant bear cat].my_any? { |word| word.length >= 4 } #=> true
-  #p %w[ant bear cat].my_any? { |word| word.length >= 50 } #=> false
-  #p %w[ant bear cat].my_any?(/d/)                        #=> false
-  #p [nil, true, 99].my_any?(Integer)                     #=> true
-  #p [nil, true, 99].my_any?                              #=> true
-  #p [].my_any?                                           #=> false
-
-  ary = [1, 2, 4, 2]
-
-  p "my_count"
-=begin
-  p ary.my_count               #=> 4
-  p ary.my_count(2)            #=> 2
-  p ary.my_count{ |x| x%2==0 } #=> 3
-  p ary.my_count('A')
-=end
+#[].multiply_els([2,4,5])
