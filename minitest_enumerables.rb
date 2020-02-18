@@ -1,7 +1,5 @@
-# frozen_string_literal: true
-
 require 'minitest/autorun'
-require './foo'
+require './enumerable'
 
 class EnumerableTest < MiniTest::Test
   def setup
@@ -11,7 +9,8 @@ class EnumerableTest < MiniTest::Test
   end
 
   def test_my_each
-    result = @enum.my_each{ |i| i }
+    result = @enum.my_each
+    #identity = ->(i) { i }
     assert_equal(@data, result)
   end
 end

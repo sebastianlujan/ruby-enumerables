@@ -5,12 +5,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "ruby-debug",
+      "name": "Debug Local File",
+      "type": "Ruby",
       "request": "launch",
-      "name": "Launch File",
-      "program": "${workspaceFolder}/Foo.rb",
-      "programArgs": [],
-      "useBundler": false
+      "program": "${workspaceRoot}/enumerable.rb"
     }
   ]
 }
