@@ -95,6 +95,7 @@ module Enumerable
     [acc, operation]
   end
 
+  # awesomeness in each line
   def eval_operation?(operation)
     ':/ :% :-'.include?(operation.to_s)
   end
