@@ -99,8 +99,9 @@ sigma = ->(sum, n) { sum + n }
 sigma = (5..10).my_inject(&sigma) #=> 45
 p sigma
 
-def multiply_els(arg)
-  arg.my_inject(1) { |acc, product| acc * product }
-end
 
-p multiply_els([2, 4, 5])
+p [1, 2, 3, 4].my_inject(:*) # 24
+p [120, 30, 2].my_inject(:/) # 2
+p [120, 30, 2].my_inject(:-) # 8
+
+p multiply_els([2, 4, 5])# 40

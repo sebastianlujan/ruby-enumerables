@@ -13,16 +13,6 @@ def validate?(arg, element, equality)
   end
 end
 
-def inject_arg_valid?(*arg)
-  acc = arg[0]&.is_a?(Numeric) ? arg[0] : 0
-  if arg[0]&.is_a? Symbol
-    operation = arg[0]
-  elsif arg[1]&.is_a? Symbol
-    operation = arg[1]
-  end
-  [acc, operation]
-end
-
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
@@ -95,17 +85,41 @@ module Enumerable
     arr
   end
 
+  def inject_arg_valid?(*arg)
+    acc = arg[0]&.is_a?(Numeric) ? arg[0] : to_a[0]
+    if arg[0]&.is_a? Symbol
+      operation = arg[0]
+    elsif arg[1]&.is_a? Symbol
+      operation = arg[1]
+    end
+    [acc, operation]
+  end
+
+  def eval_operation?(operation)
+    ':/ :% :-'.include?(operation.to_s)
+  end
+
+  def inject_valid_symbol?
+    ->(arg, i) { arg.size.between?(1, 2) && !i.zero? }
+  end
+
   def my_inject(*arg)
     acc, operation = inject_arg_valid?(*arg)
-    each do |i|
+    each_with_index do |e, i|
       if block_given? && arg.size < 2
-        acc = yield(acc, i) if acc
-      elsif arg.size.between?(1, 2)
-        acc = i.send(operation, acc)
+        acc = yield(acc, e) if acc
+      elsif inject_valid_symbol?.call(arg, i)
+        e, acc = acc, e if eval_operation?(operation)
+        acc = e.send(operation, acc)
       end
+      next
     end
     acc
   end
+end
+
+def multiply_els(arg)
+  arg.my_inject(1) { |acc, product| acc * product }
 end
 
 require './test_basic.rb'
