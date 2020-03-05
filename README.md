@@ -81,3 +81,6 @@ For more information, look into the TODO commit messages.
 - glujan.recalde@gmail.com
 
 🔥 *Be 10x better*
+
+[contributors-shield]: https://img.shields.io/github/contributors/sebastianlujan/ruby-enumerables?style=flat-square
+[contributors-url]: https://github.com/sebastianlujan/ruby-enumerables/
