@@ -83,7 +83,6 @@ p ary.my_count #=> 4
 p ary.my_count(2) #=> 2
 p ary.my_count(&:even?) #=> 3
 p ary.my_count('A') #=> 0
-=end
 
 p 'my_inject'
 sigma = (5..10).my_inject(:+) #=> 45
