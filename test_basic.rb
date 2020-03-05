@@ -83,12 +83,13 @@ p ary.my_count #=> 4
 p ary.my_count(2) #=> 2
 p ary.my_count(&:even?) #=> 3
 p ary.my_count('A') #=> 0
+=end
 
 p 'my_inject'
 sigma = (5..10).my_inject(:+) #=> 45
 p sigma
 
-product = (5..10).my_inject(1, :*) #=> 151200
+product = (5..10).my_inject(1, :*) #=> 151200  ##
 p product
 
 product = ->(acc, n) { acc * n }
@@ -96,11 +97,11 @@ product = (5..10).my_inject(1, &product) #=> 151200
 p product
 
 sigma = ->(sum, n) { sum + n }
-sigma = (5..10).my_inject(&sigma) #=> 45
+sigma = (5..10).my_inject(&sigma) #=> 45  ## ->next
 p sigma
 
 p [1, 2, 3, 4].my_inject(:*) # 24
 p [120, 30, 2].my_inject(:/) # 2
-p [120, 30, 2].my_inject(:-) # 8
+p [120, 30, 2].my_inject(:-) # 88
 
 p multiply_els([2, 4, 5]) # 40

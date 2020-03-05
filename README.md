@@ -3,7 +3,7 @@
 
 <div style="text-align: center;" >
   <a href="https://www.microverse.org">
-    <img src="img/m.png" height="70" width="70" style="background: #6f23ff;" alt="Microverse">
+    <img src="img/microverse.png" height="70" width="70" alt="Microverse">
   </a>
   
   <p>
@@ -12,12 +12,22 @@
   </p>
 </div>
 
+Self implementation on some of the Enumerables methods
+## Table of Contents
+
+* [About the Project](#about-the-project)
+* [Built With](#built-with)
+* [Roadmap](#roadmap)
+* [Contact](#contact)
+* [Acknowledgements](#acknowledgements)
+* [Contributing](#contributing)
 
 
-## Problem:
-
+## About The Project
 This is the second ruby project on the [Microverse](https://www.microverse.org) curriculum
 Here I create my own implementation of the ruby Enumerable methods
+
+![](img/code.png)
 
 ```
 #my_each_with_index
@@ -30,31 +40,44 @@ Here I create my own implementation of the ruby Enumerable methods
 #my_inject
 ```
 
-#For testing purpose , create a multiply_els
+A more detailed explanation: [ruby Enumerables](https://www.theodinproject.com/courses/ruby-programming/lessons/advanced-building-blocks).
 
-```
-multiply_els
-multiply_els([2,4,5]) #=> 40
-```
 
-Extra bonus:
-Modify your `#my_map` method to take a `proc` instead.
-Modify your `#my_map` method to `take either a **proc or a block**. 
+## 👨🏻‍💻Built With
 
-```
-It won’t be necessary to apply both a proc and a block in the same #my_map 
-call since you could get the same effect by chaining together one #my_map call
-with the block and one with the proc. This approach is also clearer, 
-since the user doesn’t have to remember whether the proc or block will be run first.
-So if both a proc and a block are given, only execute the proc.
+* Visual Studio Code
+* Ruby, Irb
+* Rubocop
 
-Quick Tips:
+## ⚡New lessons learnt
 
-Remember yield and the #call method.
-```
+* Closures
+* Blocks , Procs, Lambdas, yields
+* Enumerator / Enumerable
+* Review of ruby fundamentals
+* Clean Code Practices with Robocup
+
+## 🎯 Road Map
+
+This project will be extenden and refactored in the future for practice new techniques like metaprogramming and FP, in a near future, no roadmap associated.
+For more information, look into the TODO commit messages.
+
+## 🤝Acknowledgements
+* [Microverse](https://www.microverse.org/) - The opportunity of learn, meet and breath code, and improve my life ) 
+* [The Odin Project](https://www.theodinproject.com/) - For their open source curated links)
+* [ferdelvalle](https://github.com/ferdelvalle) -  For push me to `code for humans` and improve my code literacy )
+
+---
+## 💡🐵 Contributing
+* Fork it https://github.com/yourname/yourproject/fork
+* Create your feature branch (git checkout -b feature/fooBar)
+* Commit your changes (git commit -am 'Add some awesome fooBar')
+* Push to the branch (git push origin feature/fooBar)s
+* Create a new Pull Request
 
 ## Contact
-Sebastian Lujan: [@Sebastian Lujan](https://github.com/sebastianlujan) | glujan.recalde@gmail.com 
+☕ Sebastián Luján 
+- [Twitter: @sebastianlujan ](https://twitter.com/gseba_lujan) 
+- glujan.recalde@gmail.com
 
-[contributors-shield]: https://img.shields.io/github/contributors/sebastianlujan/ruby-enumerables?style=flat-square
-[contributors-url]: https://github.com/sebastianlujan/ruby-enumerables/
+🔥 *Be 10x better*

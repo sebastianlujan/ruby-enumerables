@@ -1,6 +1,6 @@
 # reimplementing methods
 private
-# Black arcane magic over voodoo
+
 def validate?(arg, element, equality)
   if arg.instance_of? Regexp
     arg.match?(element.to_s)
@@ -101,16 +101,33 @@ module Enumerable
   end
 
   def inject_valid_symbol?
-    ->(arg, i) { arg.size.between?(1, 2) && !i.zero? }
+    lambda do |arg, i|
+      res = (arg.size == 1 && !i.zero?)
+      res ||= arg.size == 2
+      res
+    end
+  end
+
+  def next_index?(arg, index)
+    ret = arg.size == 2 || arg.size.zero?
+    ret &&= index.zero?
+    ret
+  end
+
+  def check_operation(operation)
+    [acc, e] if eval_operation?(operation)
   end
 
   def my_inject(*arg)
     acc, operation = inject_arg_valid?(*arg)
     each_with_index do |e, i|
       if block_given? && arg.size < 2
+        next if next_index?(arg, i)
+
         acc = yield(acc, e) if acc
       elsif inject_valid_symbol?.call(arg, i)
-        e, acc = acc, e if eval_operation?(operation)
+        e, acc = check_operation(operation)
+
         acc = e.send(operation, acc)
       end
       next
@@ -122,5 +139,3 @@ end
 def multiply_els(arg)
   arg.my_inject(1) { |acc, product| acc * product }
 end
-
-require './test_basic.rb'
