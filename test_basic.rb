@@ -90,17 +90,17 @@ p sigma
 
 product = (5..10).my_inject(1, :*) #=> 151200  ##
 p product
+#
+  product = ->(acc, n) { acc * n }
+  product = (5..10).my_inject(1, &product) #=> 151200
+  p product
+#
+  sigma = ->(sum, n) { sum + n }
+  sigma = (5..10).my_inject(&sigma) #=> 45  ## ->next
+  p sigma
 
-product = ->(acc, n) { acc * n }
-product = (5..10).my_inject(1, &product) #=> 151200
-p product
-
-sigma = ->(sum, n) { sum + n }
-sigma = (5..10).my_inject(&sigma) #=> 45  ## ->next
-p sigma
-
-p [1, 2, 3, 4].my_inject(:*) # 24
-p [120, 30, 2].my_inject(:/) # 2
-p [120, 30, 2].my_inject(:-) # 88
-
-p multiply_els([2, 4, 5]) # 40
+  p [1, 2, 3, 4].my_inject(:*) # 24
+  p [120, 30, 2].my_inject(:/) # 2
+  p [120, 30, 2].my_inject(:-) # 88
+#
+  p multiply_els([2, 4, 5]) # 40

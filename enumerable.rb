@@ -114,8 +114,8 @@ module Enumerable
     ret
   end
 
-  def check_operation(operation)
-    [acc, e] if eval_operation?(operation)
+  def check_operation(operation, acc, elem)
+    eval_operation?(operation) ? [acc, elem] : [elem, acc]
   end
 
   def my_inject(*arg)
@@ -126,8 +126,7 @@ module Enumerable
 
         acc = yield(acc, e) if acc
       elsif inject_valid_symbol?.call(arg, i)
-        e, acc = check_operation(operation)
-
+        e, acc = check_operation(operation, acc, e)
         acc = e.send(operation, acc)
       end
       next
