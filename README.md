@@ -65,7 +65,7 @@ For more information, look into the TODO commit messages.
 ## 🤝 Acknowledgements
 * [Microverse](https://www.microverse.org/) - The opportunity of learn, meet people, breath code, and improve my life ) 
 * [The Odin Project](https://www.theodinproject.com/) - For their open source curated links
-* [ferdelvalle](https://github.com/ferdelvalle) -  For push me to `code for humans` and improve my code literacy )
+* [ferdelvalle](https://github.com/ferdelvalle) -  For push me to `code for humans` and improve my code literacy
 
 ## Code reviews 
 
