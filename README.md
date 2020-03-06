@@ -69,7 +69,7 @@ For more information, look into the TODO commit messages.
 
 ## Code reviews 
 * [ferdelvalle](https://github.com/ferdelvalle) -  For push me to `code for humans` and improve my code literacy )
-* [Mauricio Robayo](https://github.com/MauricioRobayo  He taught me the value of double-check my code
+* [Mauricio Robayo](https://github.com/MauricioRobayo)  He taught me the value of double-check my code
 * [Ahmed Mahfoudh](https://github.com/stratospherique) Code reviewer
 
 ---
