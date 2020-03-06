@@ -63,8 +63,8 @@ This project will be extenden and refactored in the future for practice new tech
 For more information, look into the TODO commit messages.
 
 ## 🤝 Acknowledgements
-* [Microverse](https://www.microverse.org/) - The opportunity of learn, meet and breath code, and improve my life ) 
-* [The Odin Project](https://www.theodinproject.com/) - For their open source curated links)
+* [Microverse](https://www.microverse.org/) - The opportunity of learn, meet people, breath code, and improve my life ) 
+* [The Odin Project](https://www.theodinproject.com/) - For their open source curated links
 * [ferdelvalle](https://github.com/ferdelvalle) -  For push me to `code for humans` and improve my code literacy )
 
 ## Code reviews 
