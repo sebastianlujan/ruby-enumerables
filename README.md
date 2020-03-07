@@ -17,7 +17,7 @@ Self implementation on some of the Enumerables methods
 
 * [About the Project](#about-the-project)
 * [Built With](#built-with)
-* [Roadmap](#roadmap)
+* [Road map](#road-map)
 * [Acknowledgements](#acknowledgements)
 * [Contributing](#contributing)
 * [Contact](#contact)
