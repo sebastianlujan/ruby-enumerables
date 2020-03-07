@@ -59,7 +59,7 @@ A more detailed explanation: [ruby Enumerables](https://www.theodinproject.com/c
 
 ## 🎯 Road Map
 
-This project will be extenden and refactored in the future for practice new techniques like metaprogramming and FP, in a near future, no roadmap associated.
+This project will be extended and refactored in the future for practice new techniques like metaprogramming and FP, in a near future, no roadmap associated.
 For more information, look into the TODO commit messages.
 
 ## 🤝 Acknowledgements
