@@ -1,3 +1,5 @@
+require_relative "enumerable.rb"
+
 ary = [1, 2, 4, 2]
 
 p ary.my_select(&:even?)
